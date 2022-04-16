@@ -1,7 +1,7 @@
-﻿using System;
+﻿using RabbitMQ.Client;
+using System;
 using System.Linq;
 using System.Text;
-using RabbitMQ.Client;
 
 namespace RabbitMQ.publisher
 {
@@ -17,21 +17,23 @@ namespace RabbitMQ.publisher
 
             var channel = connection.CreateModel();
 
-            channel.QueueDeclare("hello-queue",true,false,false);
+            // channel.QueueDeclare("hello-queue", true, false, false);
 
-            Enumerable.Range(1,50).ToList().ForEach(x =>
-            {
+            channel.ExchangeDeclare("logs-fanout", durable: true, type: ExchangeType.Fanout);
 
-                string message = $"Message {x}";
+            Enumerable.Range(1, 50).ToList().ForEach(x =>
+             {
 
-                var messageBody = Encoding.UTF8.GetBytes(message);
+                 string message = $"log {x}";
 
-                channel.BasicPublish(string.Empty, "hello-queue", null, messageBody);
+                 var messageBody = Encoding.UTF8.GetBytes(message);
 
-                Console.WriteLine($"Mesaj gönderilmiştir. {message}");
+                 channel.BasicPublish("logs-fanout", "", null, messageBody);
+
+                 Console.WriteLine($"Mesaj gönderilmiştir. {message}");
 
 
-            });
+             });
 
             Console.ReadLine();
 
