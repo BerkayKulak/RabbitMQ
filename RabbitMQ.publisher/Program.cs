@@ -1,7 +1,9 @@
 ﻿using RabbitMQ.Client;
+using Shared;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.Json;
 
 namespace RabbitMQ.publisher
 {
@@ -40,7 +42,11 @@ namespace RabbitMQ.publisher
 
             properties.Persistent = true;
 
-            channel.BasicPublish("header-exchange", string.Empty, properties, Encoding.UTF8.GetBytes("header mesajım"));
+            var product = new Product { Id = 1, Name = "Kalem", Price = 100, Stok = 10 };
+
+            var productJsonString = JsonSerializer.Serialize(product);
+
+            channel.BasicPublish("header-exchange", string.Empty, properties, Encoding.UTF8.GetBytes(productJsonString));
 
             Console.WriteLine("header mesajı gönderildi");
 
