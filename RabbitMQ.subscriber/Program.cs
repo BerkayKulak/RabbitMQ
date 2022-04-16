@@ -36,9 +36,15 @@ namespace RabbitMQ.subscriber
 
             var consumer = new EventingBasicConsumer(channel);
 
-            var queueName = "direct-queue-Warning";
+            var queueName = channel.QueueDeclare().QueueName;
+
+            var routeKey = "*.Error.*";
+
+            channel.QueueBind(queueName, "logs-topic", routeKey, null);
 
             channel.BasicConsume(queueName, false, consumer);
+
+
 
             Console.WriteLine("Logları dinliyorum.");
 
