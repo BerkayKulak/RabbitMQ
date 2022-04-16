@@ -1,8 +1,8 @@
-﻿using System;
+﻿using RabbitMQ.Client;
+using RabbitMQ.Client.Events;
+using System;
 using System.Linq;
 using System.Text;
-using RabbitMQ.Client;
-using RabbitMQ.Client.Events;
 
 namespace RabbitMQ.subscriber
 {
@@ -20,25 +20,36 @@ namespace RabbitMQ.subscriber
 
             // channel.QueueDeclare("hello-queue", true, false, false);
 
-            channel.BasicQos(0,1,false);
+            // rabbit mq mesajları kaç kaç göndericek onu belirttik. 1 1 göndericek.
+
+            var randomQueueName = channel.QueueDeclare().QueueName;
+            //var randomQueueName = "log-database-save-queue";
+
+            //channel.QueueDeclare(randomQueueName, true, false, false);
+
+            channel.QueueBind(randomQueueName, "logs-fanout", "", null);
+
+            channel.BasicQos(0, 1, false);
 
             var consumer = new EventingBasicConsumer(channel);
 
-            channel.BasicConsume("hello-queue", false,consumer);
+            channel.BasicConsume(randomQueueName, false, consumer);
+
+            Console.WriteLine("Logları dinliyorum.");
 
             consumer.Received += (object sender, BasicDeliverEventArgs e) =>
             {
                 var message = Encoding.UTF8.GetString(e.Body.ToArray());
 
-                Console.WriteLine("Gelen Mesaj: "+message);
+                Console.WriteLine("Gelen Mesaj: " + message);
 
-                channel.BasicAck(e.DeliveryTag,false);
-            };       
+                channel.BasicAck(e.DeliveryTag, false);
+            };
 
 
             Console.ReadLine();
         }
 
-        
+
     }
 }
