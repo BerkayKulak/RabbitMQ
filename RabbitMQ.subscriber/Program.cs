@@ -1,7 +1,7 @@
 ﻿using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System;
-using System.IO;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -33,14 +33,18 @@ namespace RabbitMQ.subscriber
 
 
             channel.BasicQos(0, 1, false);
-
+            channel.ExchangeDeclare("header-exchange", durable: true, type: ExchangeType.Headers);
             var consumer = new EventingBasicConsumer(channel);
 
             var queueName = channel.QueueDeclare().QueueName;
 
-            var routeKey = "*.Error.*";
+            Dictionary<string, object> headers = new Dictionary<string, object>();
 
-            channel.QueueBind(queueName, "logs-topic", routeKey, null);
+            headers.Add("format", "pdf");
+            headers.Add("shape", "a4");
+            headers.Add("x-match", "all");
+
+            channel.QueueBind(queueName, "header-exchange", string.Empty, headers);
 
             channel.BasicConsume(queueName, false, consumer);
 
@@ -56,7 +60,7 @@ namespace RabbitMQ.subscriber
 
                 Console.WriteLine("Gelen Mesaj: " + message);
 
-                File.AppendAllText("log-critical.txt", message + "\n");
+
 
                 channel.BasicAck(e.DeliveryTag, false);
             };
