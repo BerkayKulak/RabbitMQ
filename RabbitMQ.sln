@@ -9,9 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RabbitMQ.subscriber", "Rabb
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shared", "Shared\Shared.csproj", "{CF2CA124-FDCC-4C91-95B7-7444D8788D07}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RabbitMQ.Watermark", "RabbitMQ.Watermark\RabbitMQ.Watermark.csproj", "{06BED89D-97FA-420B-BB78-849B6DDD6873}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RabbitMQ.Watermark", "RabbitMQ.Watermark\RabbitMQ.Watermark.csproj", "{06BED89D-97FA-420B-BB78-849B6DDD6873}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RabbitMQ.Excel", "RabbitMQ.Excel\RabbitMQ.Excel.csproj", "{D720F25A-FE25-4878-ABD8-EF12688A319F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RabbitMQ.Excel", "RabbitMQ.Excel\RabbitMQ.Excel.csproj", "{D720F25A-FE25-4878-ABD8-EF12688A319F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileCreateWorkerService", "FileCreateWorkerService\FileCreateWorkerService.csproj", "{CD743714-81A5-4016-B6C6-33DA63A35F46}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{D720F25A-FE25-4878-ABD8-EF12688A319F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D720F25A-FE25-4878-ABD8-EF12688A319F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D720F25A-FE25-4878-ABD8-EF12688A319F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD743714-81A5-4016-B6C6-33DA63A35F46}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD743714-81A5-4016-B6C6-33DA63A35F46}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD743714-81A5-4016-B6C6-33DA63A35F46}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD743714-81A5-4016-B6C6-33DA63A35F46}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
