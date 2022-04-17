@@ -30,6 +30,8 @@ namespace RabbitMQ.Excel
                 DispatchConsumersAsync = true
             });
 
+            services.AddSingleton<RabbitMQPublisher>();
+
             services.AddSingleton<RabbitMQClientService>();
 
             services.AddDbContext<AppDbContext>(options =>
