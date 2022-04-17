@@ -2,6 +2,7 @@
 using RabbitMQ.Client;
 using System;
 
+
 namespace RabbitMQ.Watermark.Services
 {
     public class RabbitMQClientService : IDisposable
@@ -30,9 +31,10 @@ namespace RabbitMQ.Watermark.Services
         {
             _connection = _connectionFactory.CreateConnection();
 
+
             if (_channel is { IsOpen: true })
             {
-                _channel.Close();
+                return _channel;
             }
 
             _channel = _connection.CreateModel();
@@ -41,9 +43,11 @@ namespace RabbitMQ.Watermark.Services
 
             _channel.QueueDeclare(QueueName, true, false, false, null);
 
+
             _channel.QueueBind(exchange: ExchangeName, queue: QueueName, routingKey: RoutingWatermark);
 
-            _logger.LogInformation("RabbitMQ ile bağlantı kuruldu");
+            _logger.LogInformation("RabbitMQ ile bağlantı kuruldu...");
+
 
             return _channel;
 
