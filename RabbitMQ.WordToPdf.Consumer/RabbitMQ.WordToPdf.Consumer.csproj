@@ -5,4 +5,11 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="RabbitMQ.Client" Version="5.1.2" />
+    <PackageReference Include="Spire.Doc" Version="10.3.5" />
+    <PackageReference Include="System.Security.Permissions" Version="4.7.0" />
+  </ItemGroup>
+
 </Project>
